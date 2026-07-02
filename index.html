@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo Ping-Pong</title>
+    <style>
+        /*faz o preenchimento do campo que ficou em branco de todas as bordas
+             overfolow tira os scrolls de quando diminui a tela*/
+        * {
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas></canvas>
+
+    <script>
+        const canvasEl = document.querySelector("canvas"),
+            canvasCtx = canvasEl.getContext("2d")
+
+        const lineWidth = 15 //Largura da linha (central)
+
+        //propriedades de altura e largura
+        function setup() {
+            canvasEl.width = canvasCtx.width = window.innerWidth //pode ser feito dessa forma a sintaxe ou as duas linhas abaixo representa essa sintaxe
+            //canvesEl.width = canvasCtx.width
+            //canvasEl.width = window.innerWidth
+
+            canvasEl.height = canvasCtx.height = window.innerHeight  //pode ser feito dessa forma ou as duas linhas abaixo representa essa sintaxe
+            //canvasEl.height = cancasCtx.height
+            //canvasEl.eight = window.innerheight
+        }
+
+        function draw() {
+
+            //Desenhando o campo
+            canvasCtx.fillStyle = "#286047" //define a cor do campo
+            canvasCtx.fillRect(0, 0, window.innerWidth, window.innerHeight)
+            // 0,0 -> onde começa a ser desenhado o campo que é de cima pra baixo e da esquerda pra direita 
+            //window.innerWidth -> pega toda a largura da tela
+            //window.innerHeight -> pega toda a largura da tela
+
+
+            canvasCtx.fillStyle = "#ffffff"  //A linha a raquete e a bolinha são da mesma cor, portanto não precisa ficar declarando a cor toda hora que for criar um objeto pois no canvas é primeiro definido a cor e depois o objeto.
+
+            //Desenhando a linha central
+            canvasCtx.fillRect(window.innerWidth / 2 - lineWidth / 2,
+                0,
+                lineWidth,
+                window.innerHeight)
+
+            //Desenhando as raquetes
+
+            //Raquete esquerda
+            canvasCtx.fillRect(10, 100, lineWidth, 200)
+
+            //Raquete direita
+            canvasCtx.fillRect(
+                window.innerWidth - lineWidth - 10,
+                200,
+                lineWidth,
+                200
+            )
+
+            //Desenhando a bolinha
+            //Não será usado o fillRect pois se trata de um circulo e é usado comandos diferentes
+            canvasCtx.beginPath()
+            canvasCtx.arc(400, 300, 20, 0, 2 * Math.PI, false) 
+            canvasCtx.fill()   
+
+            //Desenhando o placar
+            canvasCtx.font = "bold 72px Arial"
+            canvasCtx.textAlign = "center"
+            canvasCtx.textBaseline = "top"
+            canvasCtx.fillStyle = "#01341D"
+            canvasCtx.fillText ("3", window.innerWidth / 4, 50) //placar esquerdo
+            canvasCtx.fillText ("1", window.innerWidth / 4 + window.innerWidth / 2, 50)  //placar direito
+        }
+
+        setup()
+        draw()
+
+    </script>
+</body>
+
+</html>
+
+<!--no canvas é trabalhado cada sobre camada
+primeiro é definido a cor do objeto e depois é criado o objeto
+-->
